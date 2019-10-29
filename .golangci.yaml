@@ -1,0 +1,45 @@
+
+linters:
+  enable:
+    # default
+    - deadcode
+    - govet
+    - errcheck
+    - ineffassign
+    - staticcheck
+    - unused
+    - varcheck
+    # added
+    - depguard
+    - dupl
+    - gochecknoinits
+    - goconst
+    - gocyclo
+    - gofmt
+    - goimports
+    - gosec
+    - stylecheck
+    - unconvert
+    - unparam
+    - golint
+    - gosimple
+    - structcheck
+    - typecheck
+    - interfacer
+    - misspell
+    - nakedret
+    - prealloc
+    - scopelint
+    - gocritic
+    - maligned
+  disable:
+    # TBD with comments
+    - gochecknoglobals # configs usually reside here
+    - lll # hard to fulfill
+
+linters-settings:
+  errcheck:
+    ignore: fmt:.*,github.com/gin-gonic/gin:Error
+
+run:
+  modules-download-mode: vendor
