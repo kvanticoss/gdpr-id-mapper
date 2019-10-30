@@ -43,7 +43,7 @@ func main() {
 	s, err := svc.New("gdpr-id-mapper", Version)
 	svc.MustInit(s, err)
 
-	logger := s.Logger()
+	logger := s.Logger().Named("DEVELOPMENT-UNPROTECTED-ID-MAPPER")
 
 	opts := badger.DefaultOptions(dbFolder)
 	opts.Truncate = truncate
