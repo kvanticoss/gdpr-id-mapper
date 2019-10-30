@@ -11,6 +11,7 @@ import (
 	"github.com/dgraph-io/badger/options"
 	"github.com/kvanticoss/gdpr-id-mapper/internal/restapp"
 	"github.com/kvanticoss/gdpr-id-mapper/internal/zapbadger"
+	"github.com/kvanticoss/gdpr-id-mapper/internal/httpworker"
 	"github.com/kvanticoss/gdpr-id-mapper/pkg/idmapper"
 	badgerAdaptor "github.com/kvanticoss/gdpr-id-mapper/pkg/kvstore/badger"
 	"github.com/voi-go/svc"
@@ -78,9 +79,9 @@ func main() {
 		ttl,
 	))
 
-	s.AddWorker("http-worker", NewHTTPWorker(Version,
-		WithPort(listenPort),
-		WithHandlerFunc(router.GetUnProctedMuxer().ServeHTTP),
+	s.AddWorker("http-worker", httpworker.NewHTTPWorker(Version,
+		httpworker.WithPort(listenPort),
+		httpworker.WithHandlerFunc(router.GetUnProctedMuxer().ServeHTTP),
 	))
 
 	s.Run()
