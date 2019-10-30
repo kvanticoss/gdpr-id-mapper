@@ -5,7 +5,8 @@ IMAGE=$(REGISTRY)/$(APP_NAME)
 VERSION?=$(shell scripts/get_version.sh)
 GOCMD=CGO_ENABLED=0 GOOS=linux go
 PKGS ?= ./...
-BIN_NAME=go-app
+DEFAULT_BIN_NAME=./cmd/unprotected-server
+BINARIES := $(wildcard cmd/*/.)
 
 dev-deps:
 	GO111MODULE=on go get -u github.com/golangci/golangci-lint/cmd/golangci-lint@v1.16.0
@@ -28,11 +29,15 @@ test_integration:
 test_unit:
 	go test $(PKGS) -count=1
 
-run: build
-	./$(BIN_NAME)
+run: build-all
+	./$(DEFAULT_BIN_NAME)
 
-build:
-	$(GOCMD) build -ldflags "-X main.version=$(VERSION)" -o $(BIN_NAME)
+.PHONY: build-all
+build-all: $(BINARIES)
+
+.PHONY: $(BINARIES)
+$(BINARIES):
+	$(GOCMD) build -ldflags "-X main.version=$(VERSION)" -o $(@D)-server ./$@
 
 vendor: go.mod
 	$(GOCMD) mod vendor
