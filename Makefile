@@ -1,5 +1,5 @@
 APP_NAME?=$(shell basename $(PWD))
-GCP_PROJECT=tbd
+GCP_PROJECT=kvantic-one
 REGISTRY?=eu.gcr.io/$(GCP_PROJECT)
 IMAGE=$(REGISTRY)/$(APP_NAME)
 VERSION?=$(shell scripts/get_version.sh)
