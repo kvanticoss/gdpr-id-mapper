@@ -142,7 +142,7 @@ It is fully possible to clear the keys `Aa`, `Aa/Bb` but not `A` or `Aa/B` as th
 
 # Architecture
 
-The system is structured around a zero trust principle. The original IDs that are sent to the server are only keep in memory for the duration of the request (excluding non GC RAM). Any data that is stored in the DB is hashed one or multiple times; each with an individual salt of at least 32 bytes.
+The system is structured with a zero PII at rest principle. The original IDs that are sent to the server are only keep in memory for the duration of the request (excluding non GC RAM). Any data that is stored in the DB is hashed one or multiple times; each with an individual salt of at least 32 bytes.
 
 When the server is started it should be provided with a "global-salt" which will be included with all hashes; as such, if the global salt is forgotten ALL records in the system can be considered anonymized (starting the server with 2 different global salt but same database would mean queries on the same Internal IDs would yield different results). You can consider the global-salt to be the  equivalent of an encryption key (but it is not)
 
